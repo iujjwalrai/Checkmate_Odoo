@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 // import Tiptap from './Tiptap'; // Rich text editor component
-import TagSelector from './TagSelector'; // Multi-select tag input here 
+import TagSelector from './TagSelector'; // Multi-select tag input 
 import VoteButton from './VoteButton';
 
 const API = import.meta.env.VITE_BASE_API_URL || 'http://localhost:4000';
