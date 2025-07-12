@@ -45,7 +45,7 @@ export default function QuestionDetails() {
                 <VoteButton id={question._id} type="question" voteCount={question.voteCount} />
                 <div className="flex-1">
                   <h1 className="text-3xl font-bold text-gray-900 mb-4">{question.title}</h1>
-                  <div className="text-gray-700 text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: question.description }} />
+                  <div className="text-gray-700 text-lg leading-relaxed question-preview" dangerouslySetInnerHTML={{ __html: question.description }} />
                 </div>
               </div>
             </div>
@@ -94,7 +94,7 @@ export default function QuestionDetails() {
                   <div className="flex items-start gap-6">
                     <VoteButton id={ans._id} type="answer" voteCount={ans.voteCount} />
                     <div className="flex-1">
-                      <div className="text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: ans.content }} />
+                      <div className="text-gray-700 leading-relaxed answer-content" dangerouslySetInnerHTML={{ __html: ans.content }} />
                       {ans.author && (
                         <div className="mt-4 text-sm text-gray-500">
                           Answered by {ans.author.username}

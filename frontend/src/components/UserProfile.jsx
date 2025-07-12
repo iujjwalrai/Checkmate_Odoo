@@ -150,8 +150,8 @@ export default function UserProfile() {
                       >
                         {answer.question.title}
                       </Link>
-                      <div className="mt-2 text-sm text-gray-600">
-                        <div dangerouslySetInnerHTML={{ __html: answer.content.substring(0, 150) + '...' }} />
+                      <div className="mt-2 text-sm text-gray-600 line-clamp-2 max-h-16 overflow-hidden answer-content">
+                        <div dangerouslySetInnerHTML={{ __html: answer.content }} />
                       </div>
                       <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
                         <span>{answer.voteCount || 0} votes</span>

@@ -5,6 +5,7 @@ const cors = require('cors');
 // const rateLimit = require('express-rate-limit');
 // const morgan = require('morgan');
 require('dotenv').config();
+const path = require('path');
 
 const authRoutes = require('./routes/auth');
 const questionRoutes = require('./routes/questions');
@@ -44,7 +45,11 @@ app.use('/api/answers', answerRoutes);
 app.use('/api/users', userRoutes);
 // app.use('/api/tags', tagRoutes);
 app.use('/api/notifications', notificationRoutes);
-// app.use('/api/upload', uploadRoutes);
+// Serve uploaded images statically
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Mount upload route
+app.use('/api/upload', require('./routes/upload'));
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong!' });

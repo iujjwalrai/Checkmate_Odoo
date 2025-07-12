@@ -6,7 +6,11 @@ const API = import.meta.env.VITE_BASE_API_URL || 'http://localhost:4000';
 export default function VoteButton({ id, type, voteCount }) {
   const [count, setCount] = useState(voteCount);
   const [isGuest, setIsGuest] = useState(false);
-  
+
+  useEffect(() => {
+    setCount(voteCount); // Keep count in sync with prop
+  }, [voteCount]);
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsGuest(!token);
@@ -20,11 +24,10 @@ export default function VoteButton({ id, type, voteCount }) {
         window.location.href = '/';
         return;
       }
-      
       const { data } = await axios.post(`${API}/api/${type}s/${id}/vote`, { voteType }, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setCount(data.voteCount);
+      setCount(data.voteCount); // Always use backend's total
     } catch (err) {
       console.error(err);
       if (err.response?.status === 401) {

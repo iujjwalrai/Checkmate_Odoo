@@ -82,9 +82,32 @@ export function QuestionList() {
                     >
                       {q.title}
                     </Link>
-                    <div className="text-gray-600 mb-4 line-clamp-2">
-                      <div dangerouslySetInnerHTML={{ __html: q.description?.substring(0, 200) + '...' }} />
+                    <div className="text-gray-600 mb-4 line-clamp-2 max-h-32 overflow-hidden question-preview">
+                      <div dangerouslySetInnerHTML={{ __html: q.description }} />
                     </div>
+                    {/* Inserted Hyperlink section */}
+                    {(() => {
+                      // Extract first hyperlink from description
+                      const div = document.createElement('div');
+                      div.innerHTML = q.description || '';
+                      const a = div.querySelector('a[href]');
+                      if (a && a.href) {
+                        return (
+                          <div className="mt-2">
+                            <span className="text-xs text-gray-500 mr-2">Inserted Hyperlink:</span>
+                            <a
+                              href={a.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 underline hover:text-blue-800"
+                            >
+                              {a.href}
+                            </a>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })()}
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-6 text-sm text-gray-500">
                         {q.author?.username && (

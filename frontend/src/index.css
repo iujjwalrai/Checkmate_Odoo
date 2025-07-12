@@ -15,3 +15,19 @@
     overflow: hidden;
   }
 }
+
+.question-preview img,
+.answer-content img {
+  max-width: 200px;
+  max-height: 150px;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+  display: inline-block;
+  margin: 0.5em 0;
+}
+.question-preview img:hover,
+.answer-content img:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.16);
+}

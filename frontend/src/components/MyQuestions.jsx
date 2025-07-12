@@ -299,8 +299,8 @@ export default function MyQuestions() {
                       >
                         {question.title}
                       </Link>
-                      <div className="text-gray-600 mb-4 line-clamp-2">
-                        <div dangerouslySetInnerHTML={{ __html: question.description.substring(0, 200) + '...' }} />
+                      <div className="text-gray-600 mb-4 line-clamp-2 max-h-32 overflow-hidden question-preview">
+                        <div dangerouslySetInnerHTML={{ __html: question.description }} />
                       </div>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-6 text-sm text-gray-500">

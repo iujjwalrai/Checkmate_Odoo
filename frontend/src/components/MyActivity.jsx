@@ -188,8 +188,8 @@ export default function MyActivity() {
                               Answer
                             </span>
                           </div>
-                          <div className="text-sm text-gray-600 mb-2">
-                            <div dangerouslySetInnerHTML={{ __html: item.content.substring(0, 150) + '...' }} />
+                          <div className="text-sm text-gray-600 mb-2 line-clamp-2 max-h-16 overflow-hidden answer-content">
+                            <div dangerouslySetInnerHTML={{ __html: item.content }} />
                           </div>
                           <div className="flex items-center gap-4 text-sm text-gray-600">
                             <span>{item.voteCount || 0} votes</span>
