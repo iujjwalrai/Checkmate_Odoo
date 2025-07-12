@@ -10,7 +10,7 @@ export default function App() {
   const [redirectMessage, setRedirectMessage] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
-  // Check if user was redirected from a protected page
+
   useEffect(() => {
     if (location.state?.from) {
       const fromPath = location.state.from.pathname;
@@ -35,17 +35,22 @@ export default function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(import.meta.env.VITE_BASE_API_URL);
       const baseUrl = import.meta.env.VITE_BASE_API_URL || 'http://localhost:4000';
       const url = isLogin ? `${baseUrl}/api/auth/login` : `${baseUrl}/api/auth/register`;
       const { data } = await axios.post(url, form);
+
       setMessage(data.message);
       localStorage.setItem('token', data.token);
-      // Store username for fallback use
       if (data.user && data.user.username) {
         localStorage.setItem('username', data.user.username);
       }
-      navigate('/my-questions');
+
+      // ✅ Redirect based on role
+      if (data.user && data.user.role === 'admin') {
+        navigate('/admin-dashboard');
+      } else {
+        navigate('/my-questions');
+      }
     } catch (err) {
       console.log(err);
       setMessage(err.response?.data?.error || 'Something went wrong');
@@ -54,13 +59,12 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 relative overflow-hidden">
-      {/* Background decoration */}
       <div className="absolute inset-0 bg-black/10"></div>
       <div className="absolute top-0 left-0 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
-      
+
       <div className="relative z-10 text-center mb-8">
-        <motion.h1 
+        <motion.h1
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: 'spring', stiffness: 100 }}
@@ -161,7 +165,7 @@ export default function App() {
 
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
-            {isLogin ? 'Don\'t have an account?' : 'Already have an account?'}{' '}
+            {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
             <button
               type="button"
               onClick={() => setIsLogin(!isLogin)}
@@ -170,8 +174,7 @@ export default function App() {
               {isLogin ? 'Register here' : 'Sign in here'}
             </button>
           </p>
-          
-          {/* Guest Access Option */}
+
           <div className="mt-6 pt-6 border-t border-gray-200">
             <p className="text-sm text-gray-500 mb-3">Want to explore first?</p>
             <button

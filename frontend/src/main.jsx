@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import App from './App.jsx';
 import './index.css';
+import AdminDashboard from './admin_dashboard.jsx';
 
 import { QuestionList } from './components/QuestionList';
 import QuestionDetails from './components/QuestionDetails';
@@ -81,6 +82,14 @@ createRoot(document.getElementById('root')).render(
               <GuestRoute>
                 <UserProfile />
               </GuestRoute>
+            }
+          />
+              <Route
+            path="/admin-dashboard"
+            element={
+              <PrivateRoute requireAdmin={true}>
+                <AdminDashboard />
+              </PrivateRoute>
             }
           />
 
